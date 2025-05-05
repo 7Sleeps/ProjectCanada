@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Canda - Advanced Script Executor</title>
+    <style>
+        /* Basic Reset & Defaults */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body {
+            font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #080808;
+            color: #e1e1e1;
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        button, a.button {
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 9px 18px;
+            border-radius: 6px;
+            transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        button:hover, a.button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+        button:active, a.button:active {
+             transform: translateY(0px);
+             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #2ecc71;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 35px;
+        }
+
+        nav ul li a {
+            color: #a0a0a0;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-block;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .theme-toggle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #383838;
+            color: #999;
+            background-color: transparent;
+            padding: 0;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+        }
+         .theme-toggle:hover {
+            background-color: #1f1f1f;
+            border-color: #555;
+            color: #ccc;
+            box-shadow: none;
+            transform: none;
+         }
+         .theme-toggle svg {
+            width: 15px;
+            height: 15px;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            fill: none;
+         }
+
+        .login-btn {
+            background-color: transparent;
+            border: 1px solid #383838;
+            color: #b0b0b0;
+        }
+        .login-btn:hover {
+            background-color: #1f1f1f;
+            color: #ffffff;
+            border-color: #555;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+         .login-btn svg {
+            width: 15px; height: 15px; position: relative; top: -1px;
+         }
+
+        .signup-btn {
+            background-color: #2ecc71;
+            color: #111;
+            font-weight: 600;
+        }
+        .signup-btn:hover {
+            background-color: #27ae60;
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+        }
+        .signup-btn svg {
+            width: 15px; height: 15px; position: relative; top: -1px;
+        }
+
+        /* Announcement Bar */
+        .announcement-container {
+            text-align: center;
+            margin: 25px 0 30px;
+            animation: fadeIn 0.6s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+        .announcement-bar {
+            background-color: rgba(46, 204, 113, 0.12);
+            color: #c8c8c8;
+            padding: 7px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(46, 204, 113, 0.25);
+        }
+        .announcement-bar .dot {
+             display: inline-block;
+             width: 7px;
+             height: 7px;
+             background-color: #2ecc71;
+             border-radius: 50%;
+             margin-right: 7px;
+             vertical-align: middle;
+             box-shadow: 0 0 6px 1px rgba(46, 204, 113, 0.5);
+             position: relative;
+             top: -1px;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            padding: 30px 0 90px;
+            flex-wrap: wrap;
+        }
+
+        .hero-left {
+            flex: 1;
+            min-width: 320px;
+            animation: fadeIn 0.7s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+        .hero-left h1 {
+            font-size: clamp(2.8rem, 6vw, 3.9rem);
+            font-weight: 700;
+            line-height: 1.18;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+        .hero-left h1 .highlight { color: #2ecc71; }
+        .hero-left h1 .secondary { color: #ffffff; }
+        .hero-left p {
+            font-size: clamp(1rem, 2.5vw, 1.1rem);
+            color: #a8a8a8;
+            margin-bottom: 35px;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+
+        .platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 35px;
+            max-width: 460px;
+        }
+        .platform-item {
+            background-color: #1a1a1a;
+            border: 1px solid #2d2d2d;
+            padding: 10px 15px;
+            border-radius: 7px;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #c8c8c8;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+         .platform-item:hover {
+             background-color: #222222;
+             border-color: #404040;
+         }
+        .platform-item .dot {
+            display: inline-block;
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            margin-right: 10px;
+            flex-shrink: 0;
+            position: relative; top: -1px;
+        }
+        .platform-item.windows .dot, .platform-item.macos .dot {
+            background-color: #2ecc71;
+            box-shadow: 0 0 6px rgba(46, 204, 113, 0.6);
+        }
+        .platform-item.android .dot, .platform-item.ios .dot {
+            background-color: #e74c3c;
+            box-shadow: 0 0 6px rgba(231, 76, 60, 0.5);
+        }
+
+        .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+        .get-started-btn {
+             background-color: #2ecc71; color: #111;
+             font-weight: 600; padding: 10px 22px; font-size: 0.95rem;
+        }
+        .get-started-btn:hover {
+             background-color: #27ae60; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3); transform: translateY(-2px);
+        }
+         .explore-features-btn {
+             background-color: transparent; border: 1px solid #2ecc71; color: #2ecc71;
+             font-weight: 500; padding: 10px 22px; font-size: 0.95rem;
+         }
+         .explore-features-btn:hover {
+             background-color: rgba(46, 204, 113, 0.1); color: #fff; border-color: #2ecc71;
+             box-shadow: 0 5px 15px rgba(46, 204, 113, 0.15); transform: translateY(-2px);
+         }
+
+        .hero-right {
+            flex: 1.15; min-width: 350px; display: flex; justify-content: center; align-items: center;
+            animation: fadeIn 0.7s ease-out 0.4s forwards; opacity: 0;
+        }
+
+        .code-editor-mockup {
+            background-color: #1e1e1e;
+            border-radius: 9px;
+            padding: 12px 15px;
+            border: 1px solid rgba(46, 204, 113, 0.1);
+            box-shadow: 0 0 35px rgba(46, 204, 113, 0.20),
+                        0 0 10px rgba(46, 204, 113, 0.18),
+                        0 8px 20px rgba(0, 0, 0, 0.35);
+            max-width: 620px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .code-editor-mockup:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(46, 204, 113, 0.25),
+                        0 0 12px rgba(46, 204, 113, 0.22),
+                        0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .editor-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #303030;
+        }
+        .window-dots { display: flex; gap: 7px; flex-shrink: 0; }
+        .window-dots span { display: block; width: 11px; height: 11px; border-radius: 50%; }
+        .window-dots .dot-red { background-color: #ff5f57; }
+        .window-dots .dot-yellow { background-color: #ffbd2e; }
+        .window-dots .dot-green { background-color: #28c940; }
+
+        .editor-title {
+            color: #b0b0b0; font-size: 0.85rem; font-weight: 500; text-align: center;
+            flex-grow: 1; margin: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .editor-status {
+            display: flex; align-items: center; gap: 7px; font-size: 0.8rem; color: #999;
+            font-weight: 500; flex-shrink: 0;
+        }
+         .editor-status .status-dot {
+             display: inline-block; width: 8px; height: 8px; background-color: #2ecc71; border-radius: 50%;
+             box-shadow: 0 0 5px rgba(46, 204, 113, 0.6);
+         }
+         .editor-status .status-icon {
+            display: flex; align-items: center; justify-content: center; width: 18px; height: 18px;
+            background-color: #333; border-radius: 4px; color: #888;
+         }
+          .editor-status .status-icon svg { width: 11px; height: 11px; stroke: currentColor; stroke-width: 1.5; }
+
+        .code-content {
+            white-space: pre;
+            font-family: 'SF Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.825rem;
+            line-height: 1.65;
+            color: #cccccc;
+            max-height: 350px;
+            padding-right: 10px; padding-bottom: 5px;
+        }
+        .code-content .keyword { color: #c586c0; }
+        .code-content .variable { color: #9cdcfe; }
+        .code-content .object { color: #4fc1ff; }
+        .code-content .function { color: #dcdcaa; }
+        .code-content .property { color: #9cdcfe; }
+        .code-content .string { color: #ce9178; }
+        .code-content .punctuation { color: #808080; }
+        .code-content .comment { color: #6a9955; }
+        .code-content .number { color: #b5cea8; }
+
+        /* Footer */
+        footer {
+            text-align: center; padding: 50px 0 30px; margin-top: 60px;
+            border-top: 1px solid #1f1f1f; animation: fadeIn 0.8s ease-out 0.6s forwards; opacity: 0;
+        }
+        .footer-logo {
+             display: inline-flex; align-items: center; justify-content: center;
+             width: 30px; height: 30px; border: 1.5px solid #444; border-radius: 50%;
+             font-weight: 600; color: #888; font-size: 0.9rem; background-color: #121212;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 900px) {
+            .hero { flex-direction: column; text-align: center; gap: 40px; }
+            .hero-left, .hero-right { flex: none; width: 100%; align-items: center; max-width: 600px; margin: 0 auto; }
+            .hero-left p { margin-left: auto; margin-right: auto; }
+            .platforms { margin-left: auto; margin-right: auto; grid-template-columns: repeat(2, 1fr); }
+            .hero-buttons { justify-content: center; }
+            .hero-right { margin-top: 30px; }
+            .code-editor-mockup { margin: 0 auto; }
+        }
+        @media (max-width: 768px) {
+             .container { padding: 0 20px; }
+             nav ul { display: none; }
+             .header-actions { margin-left: auto; }
+             .platforms { max-width: 400px; }
+             .code-editor-mockup { margin-left: -5px; margin-right: -5px; }
+        }
+         @media (max-width: 480px) {
+             .hero-left h1 { font-size: 2.4rem; }
+             .hero-left p { font-size: 0.95rem; }
+             .platforms { grid-template-columns: 1fr; max-width: 280px; }
+             .hero-buttons { flex-direction: column; align-items: center; gap: 15px; width: 100%; }
+             .hero-buttons .button { width: 90%; max-width: 320px; }
+             .login-btn, .signup-btn { padding: 11px 18px; }
+             .header-actions { gap: 8px; }
+             .button, a.button { font-size: 0.85rem; }
+         }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">Project Canda</a>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Executor</a></li>
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">TOS</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <button class="theme-toggle" title="Toggle Theme" aria-label="Toggle Theme">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50,15 A35,35 0 1,1 50,85 A35,35 0 1,1 50,15 M35,50 A15,15 0 1,0 65,50 A15,15 0 1,0 35,50 Z" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <a href="#" class="button login-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                    Login
+                </a>
+                <a href="#" class="button signup-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg>
+                    Sign Up
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="announcement-container">
+            <div class="announcement-bar">
+                <span class="dot"></span> Now Available for Windows & MacOS
+            </div>
+        </div>
+
+        <div class="hero">
+            <div class="hero-left">
+                <h1>
+                    <span class="highlight">Project Canda</span><br>
+                    <span class="secondary">Advanced Script Executor</span>
+                </h1>
+                <p>
+                    Elevate your scripting experience with our powerful cross-platform executor. Available for Windows and MacOS with advanced features.
+                </p>
+                <div class="platforms">
+                    <div class="platform-item windows"><span class="dot"></span>Windows</div>
+                    <div class="platform-item macos"><span class="dot"></span>MacOS</div>
+                    <div class="platform-item android"><span class="dot"></span>Android</div>
+                    <div class="platform-item ios"><span class="dot"></span>iOS</div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#" class="button get-started-btn">Get Started →</a>
+                    <a href="#" class="button explore-features-btn">Explore Features</a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="code-editor-mockup">
+                    <div class="editor-header">
+                        <div class="window-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <div class="editor-title">Project Canda</div>
+                        <div class="editor-status">
+                            <span class="status-dot"></span> Canda
+                            <span class="status-icon" title="User/Settings">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            </span>
+                        </div>
+                    </div>
+<pre class="code-content">
+<span class="keyword">local</span> <span class="variable">RunService</span> <span class="punctuation">=</span> <span class="object">game</span><span class="punctuation">:</span><span class="function">GetService</span><span class="punctuation">(</span><span class="string">'RunService'</span><span class="punctuation">)</span>
+<span class="keyword">local</span> <span class="variable">TweenService</span> <span class="punctuation">=</span> <span class="object">game</span><span class="punctuation">:</span><span class="function">GetService</span><span class="punctuation">(</span><span class="string">'TweenService'</span><span class="punctuation">)</span>
+
+<span class="keyword">local</span> <span class="variable">UserInputService</span> <span class="punctuation">=</span> <span class="object">game</span><span class="punctuation">:</span><span class="function">GetService</span><span class="punctuation">(</span><span class="string">'UserInputService'</span><span class="punctuation">)</span>
+<span class="keyword">local</span> <span class="variable">Players</span> <span class="punctuation">=</span> <span class="object">game</span><span class="punctuation">:</span><span class="function">GetService</span><span class="punctuation">(</span><span class="string">'Players'</span><span class="punctuation">)</span>
+
+<span class="keyword">local</span> <span class="variable">LocalPlayer</span><span class="punctuation">,</span> <span class="variable">localPlayer</span> <span class="punctuation">=</span> <span class="object">Players</span><span class="punctuation">.</span><span class="property">LocalPlayer</span><span class="punctuation">,</span> <span class="object">Players</span><span class="punctuation">.</span><span class="property">LocalPlayer</span>
+<span class="keyword">local</span> <span class="variable">Mouse</span> <span class="punctuation">=</span> <span class="variable">localPlayer</span><span class="punctuation">:</span><span class="function">GetMouse</span><span class="punctuation">()</span>
+
+<span class="keyword">local</span> <span class="variable">Backpack</span> <span class="punctuation">=</span> <span class="variable">localPlayer</span><span class="punctuation">.</span><span class="property">Backpack</span>
+<span class="keyword">local</span> <span class="variable">Camera</span><span class="punctuation">,</span> <span class="variable">camera</span> <span class="punctuation">=</span> <span class="object">workspace</span><span class="punctuation">.</span><span class="property">CurrentCamera</span><span class="punctuation">,</span> <span class="object">workspace</span><span class="punctuation">.</span><span class="property">CurrentCamera</span>
+
+<span class="keyword">local</span> <span class="variable">sLower</span><span class="punctuation">,</span> <span class="variable">sUpper</span> <span class="punctuation">=</span> <span class="object">string</span><span class="punctuation">.</span><span class="function">lower</span><span class="punctuation">,</span> <span class="object">string</span><span class="punctuation">.</span><span class="function">upper</span>
+<span class="keyword">local</span> <span class="variable">sFind</span> <span class="punctuation">=</span> <span class="object">string</span><span class="punctuation">.</span><span class="function">find</span>
+
+<span class="keyword">local</span> <span class="variable">Module</span> <span class="punctuation">=</span> <span class="punctuation">{</span>
+
+<span class="punctuation">}</span>
+</pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <span class="footer-logo">N</span>
+        </div>
+    </footer>
+
+    <!-- No JavaScript needed for static layout/animations -->
+
+</body>
+</html>3
