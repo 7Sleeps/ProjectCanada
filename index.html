@@ -14,6 +14,10 @@
             padding: 0;
         }
 
+        html {
+             scroll-behavior: smooth; /* Enable smooth scrolling */
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -70,11 +74,27 @@
             padding: 0 25px;
         }
 
+        /* Section Title Styling */
+        .section-title {
+             text-align: center;
+             font-size: 2.4rem;
+             font-weight: 600;
+             color: #2ecc71;
+             margin-bottom: 50px;
+        }
+
+
         /* Header Styles */
         header {
             padding: 20px 0;
             animation: fadeIn 0.5s ease-out forwards;
             opacity: 0; /* Start hidden for animation */
+            position: sticky; /* Make header sticky */
+            top: 0;
+            background-color: rgba(8, 8, 8, 0.85); /* Add background for sticky header */
+            backdrop-filter: blur(10px); /* Optional blur effect */
+            z-index: 1000;
+            border-bottom: 1px solid rgba(45, 45, 45, 0.5); /* Subtle border */
         }
 
         .header-content {
@@ -175,6 +195,7 @@
         .announcement-container {
             text-align: center;
             margin: 25px 0 30px;
+            padding-top: 20px; /* Add padding because header is sticky */
             animation: fadeIn 0.6s ease-out 0.2s forwards;
             opacity: 0;
         }
@@ -209,13 +230,14 @@
             gap: 60px;
             padding: 30px 0 90px;
             flex-wrap: wrap;
+            animation: fadeIn 0.7s ease-out 0.3s forwards;
+            opacity: 0; /* Apply fade in directly to hero */
         }
 
         .hero-left {
             flex: 1;
             min-width: 320px;
-            animation: fadeIn 0.7s ease-out 0.3s forwards;
-            opacity: 0;
+            /* animation removed - applied to parent .hero */
         }
         .hero-left h1 {
             font-size: clamp(2.8rem, 6vw, 3.9rem);
@@ -294,7 +316,7 @@
 
         .hero-right {
             flex: 1.15; min-width: 350px; display: flex; justify-content: center; align-items: center;
-            animation: fadeIn 0.7s ease-out 0.4s forwards; opacity: 0;
+           /* animation removed - applied to parent .hero */
         }
 
         .code-editor-mockup {
@@ -374,14 +396,9 @@
             padding: 80px 0 50px;
             animation: fadeIn 0.8s ease-out 0.5s forwards;
             opacity: 0;
+            scroll-margin-top: 80px; /* Offset for sticky header */
         }
-        .features-section h2 {
-            text-align: center;
-            font-size: 2.4rem;
-            font-weight: 600;
-            color: #2ecc71;
-            margin-bottom: 50px;
-        }
+
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -428,20 +445,80 @@
             line-height: 1.65;
         }
 
+        /* Why Choose Us Section */
+        .why-choose-us-section {
+            padding: 70px 0;
+            background-color: #101010; /* Slightly different background */
+            border-top: 1px solid #1f1f1f;
+            border-bottom: 1px solid #1f1f1f;
+            animation: fadeIn 0.8s ease-out 0.7s forwards;
+            opacity: 0;
+        }
+        .why-choose-us-content {
+            max-width: 800px; /* Limit width for readability */
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 35px; /* Space between items */
+        }
+        .choice-item {
+            /* No specific background needed, uses section background */
+        }
+        .choice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+        }
+        .choice-item h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #c8c8c8;
+        }
+        .choice-item .percentage {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #2ecc71;
+        }
+        .choice-item p {
+            font-size: 0.9rem;
+            color: #888888; /* Slightly dimmer text */
+            margin-bottom: 12px;
+            max-width: 95%; /* Prevent text touching percentage */
+        }
+        .progress-bar-container {
+            background-color: #252525;
+            border-radius: 5px;
+            height: 8px;
+            overflow: hidden; /* Ensure inner bar respects radius */
+        }
+        .progress-bar {
+            background-color: #2ecc71;
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease-out; /* Add transition for visual effect if width changes */
+        }
 
         /* Footer */
         footer {
             text-align: center; padding: 50px 0 30px; margin-top: 60px;
-            border-top: 1px solid #1f1f1f; animation: fadeIn 0.8s ease-out 0.6s forwards; opacity: 0;
+            /* border-top removed - added border to section above */
+            animation: fadeIn 0.8s ease-out 0.9s forwards; opacity: 0;
         }
         .footer-logo {
              display: inline-flex; align-items: center; justify-content: center;
              width: 30px; height: 30px; border: 1.5px solid #444; border-radius: 50%;
              font-weight: 600; color: #888; font-size: 0.9rem; background-color: #121212;
         }
+        .footer-copyright {
+            color: #555; font-size: 0.85rem; margin-top: 15px;
+        }
+
 
         /* Responsive Adjustments */
         @media (max-width: 900px) {
+            .section-title { font-size: 2rem; }
+
             .hero { flex-direction: column; text-align: center; gap: 40px; }
             .hero-left, .hero-right { flex: none; width: 100%; align-items: center; max-width: 600px; margin: 0 auto; }
             .hero-left p { margin-left: auto; margin-right: auto; }
@@ -451,7 +528,7 @@
             .code-editor-mockup { margin: 0 auto; }
 
             .features-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-            .features-section h2 { font-size: 2rem; }
+
         }
         @media (max-width: 768px) {
              .container { padding: 0 20px; }
@@ -461,8 +538,11 @@
              .code-editor-mockup { margin-left: -5px; margin-right: -5px; } /* Allow slight overflow */
 
              .features-grid { grid-template-columns: 1fr; } /* Stack features */
+             .why-choose-us-section { padding: 50px 0; }
         }
          @media (max-width: 480px) {
+             .section-title { font-size: 1.8rem; margin-bottom: 35px;}
+
              .hero-left h1 { font-size: 2.4rem; }
              .hero-left p { font-size: 0.95rem; }
              .platforms { grid-template-columns: 1fr; max-width: 280px; }
@@ -471,9 +551,15 @@
              .login-btn, .signup-btn { padding: 11px 18px; }
              .header-actions { gap: 8px; }
              .button, a.button { font-size: 0.85rem; }
+
              .feature-item { padding: 20px 25px; }
-             .features-section h2 { font-size: 1.8rem; margin-bottom: 35px;}
              .features-section { padding: 60px 0 40px; }
+
+             .why-choose-us-section { padding: 40px 0; }
+             .why-choose-us-content { gap: 25px; }
+             .choice-item h3 { font-size: 1rem; }
+             .choice-item .percentage { font-size: 0.9rem; }
+             .choice-item p { font-size: 0.85rem; }
          }
 
     </style>
@@ -486,8 +572,7 @@
             <nav>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Executor</a></li>
-                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#powerful-features">Features</a></li> <li><a href="#">Documentation</a></li>
                     <li><a href="#">TOS</a></li>
                 </ul>
             </nav>
@@ -533,7 +618,7 @@
                 </div>
                 <div class="hero-buttons">
                     <a href="#" class="button get-started-btn">Get Started →</a>
-                    <a href="#" class="button explore-features-btn">Explore Features</a>
+                    <a href="#powerful-features" class="button explore-features-btn">Explore Features</a>
                 </div>
             </div>
             <div class="hero-right">
@@ -577,11 +662,11 @@
         </div>
     </main>
 
-    <section class="features-section">
+    <section id="powerful-features" class="features-section">
         <div class="container">
-            <h2>Powerful Features</h2>
+            <h2 class="section-title">Powerful Features</h2>
             <div class="features-grid">
-                <div class="feature-item">
+                 <div class="feature-item">
                     <div class="icon">
                         <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                     </div>
@@ -590,7 +675,7 @@
                 </div>
                 <div class="feature-item">
                     <div class="icon">
-                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                         <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                     </div>
                     <h3>HWID Spoofer</h3>
                     <p>Built-in hardware ID spoofer to protect your identity while scripting.</p>
@@ -626,9 +711,57 @@
             </div>
         </div>
     </section>
+    <section class="why-choose-us-section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Us</h2>
+            <div class="why-choose-us-content">
+                <div class="choice-item">
+                    <div class="choice-header">
+                         <h3>Performance</h3>
+                         <span class="percentage">95%</span>
+                    </div>
+                    <p>Our executor is optimized for maximum performance with minimal resource usage.</p>
+                    <div class="progress-bar-container">
+                         <div class="progress-bar" style="width: 95%;"></div>
+                    </div>
+                </div>
+                 <div class="choice-item">
+                     <div class="choice-header">
+                         <h3>Stability</h3>
+                         <span class="percentage">90%</span>
+                    </div>
+                    <p>Enjoy a stable experience with fewer crashes and smoother operation.</p>
+                    <div class="progress-bar-container">
+                         <div class="progress-bar" style="width: 90%;"></div>
+                    </div>
+                </div>
+                <div class="choice-item">
+                     <div class="choice-header">
+                         <h3>Security</h3>
+                         <span class="percentage">98%</span>
+                    </div>
+                    <p>Your security is our priority with regular updates and vulnerability patches.</p>
+                    <div class="progress-bar-container">
+                         <div class="progress-bar" style="width: 98%;"></div>
+                    </div>
+                </div>
+                <div class="choice-item">
+                     <div class="choice-header">
+                         <h3>Compatibility</h3>
+                         <span class="percentage">92%</span>
+                    </div>
+                    <p>Works with a wide range of scripts and platforms for maximum flexibility.</p>
+                    <div class="progress-bar-container">
+                         <div class="progress-bar" style="width: 92%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <footer>
         <div class="container">
-            <span class="footer-logo">N</span> <p style="color: #555; font-size: 0.85rem; margin-top: 10px;">&copy; 2025 Project Canda. All rights reserved.</p> </div>
+            <span class="footer-logo">N</span> <p class="footer-copyright">&copy; 2025 Project Canda. All rights reserved.</p>
+        </div>
     </footer>
 
     </body>
