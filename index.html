@@ -74,6 +74,7 @@
         header {
             padding: 20px 0;
             animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0; /* Start hidden for animation */
         }
 
         .header-content {
@@ -222,9 +223,10 @@
             line-height: 1.18;
             margin-bottom: 20px;
             letter-spacing: -0.5px;
+            color: #e1e1e1; /* Default color for h1 */
         }
         .hero-left h1 .highlight { color: #2ecc71; }
-        .hero-left h1 .secondary { color: #ffffff; }
+        .hero-left h1 .secondary { color: #ffffff; } /* Ensure secondary has contrast */
         .hero-left p {
             font-size: clamp(1rem, 2.5vw, 1.1rem);
             color: #a8a8a8;
@@ -269,7 +271,7 @@
             box-shadow: 0 0 6px rgba(46, 204, 113, 0.6);
         }
         .platform-item.android .dot, .platform-item.ios .dot {
-            background-color: #e74c3c;
+            background-color: #e74c3c; /* Example: Different color for mobile */
             box-shadow: 0 0 6px rgba(231, 76, 60, 0.5);
         }
 
@@ -352,18 +354,80 @@
             font-size: 0.825rem;
             line-height: 1.65;
             color: #cccccc;
-            max-height: 350px;
+            max-height: 350px; /* Limit height */
+            overflow-y: auto; /* Add scroll if needed */
             padding-right: 10px; padding-bottom: 5px;
         }
-        .code-content .keyword { color: #c586c0; }
-        .code-content .variable { color: #9cdcfe; }
-        .code-content .object { color: #4fc1ff; }
-        .code-content .function { color: #dcdcaa; }
-        .code-content .property { color: #9cdcfe; }
-        .code-content .string { color: #ce9178; }
-        .code-content .punctuation { color: #808080; }
-        .code-content .comment { color: #6a9955; }
-        .code-content .number { color: #b5cea8; }
+        /* Simple syntax highlighting */
+        .code-content .keyword { color: #c586c0; } /* Magenta/Purple */
+        .code-content .variable { color: #9cdcfe; } /* Light Blue */
+        .code-content .object { color: #4fc1ff; } /* Blue */
+        .code-content .function { color: #dcdcaa; } /* Yellow */
+        .code-content .property { color: #9cdcfe; } /* Light Blue */
+        .code-content .string { color: #ce9178; } /* Orange */
+        .code-content .punctuation { color: #808080; } /* Grey */
+        .code-content .comment { color: #6a9955; } /* Green */
+        .code-content .number { color: #b5cea8; } /* Light Green */
+
+        /* Features Section */
+        .features-section {
+            padding: 80px 0 50px;
+            animation: fadeIn 0.8s ease-out 0.5s forwards;
+            opacity: 0;
+        }
+        .features-section h2 {
+            text-align: center;
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: #2ecc71;
+            margin-bottom: 50px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .feature-item {
+            background-color: #121212;
+            border: 1px solid #252525;
+            border-radius: 8px;
+            padding: 25px 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .feature-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border-color: #383838;
+        }
+        .feature-item .icon {
+            display: inline-block;
+            width: 32px; /* Placeholder size */
+            height: 32px;
+            background-color: rgba(46, 204, 113, 0.15); /* Icon background */
+            border-radius: 6px;
+            margin-bottom: 15px;
+            /* Add SVG or font icon here */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2ecc71; /* Icon color */
+        }
+         .feature-item .icon svg {
+             width: 18px; height: 18px; stroke: currentColor; stroke-width: 1.5; fill: none;
+         }
+
+        .feature-item h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #e1e1e1;
+            margin-bottom: 10px;
+        }
+        .feature-item p {
+            font-size: 0.95rem;
+            color: #a0a0a0;
+            line-height: 1.65;
+        }
+
 
         /* Footer */
         footer {
@@ -385,13 +449,18 @@
             .hero-buttons { justify-content: center; }
             .hero-right { margin-top: 30px; }
             .code-editor-mockup { margin: 0 auto; }
+
+            .features-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+            .features-section h2 { font-size: 2rem; }
         }
         @media (max-width: 768px) {
              .container { padding: 0 20px; }
-             nav ul { display: none; }
-             .header-actions { margin-left: auto; }
+             nav ul { display: none; } /* Hide nav on smaller screens */
+             .header-actions { margin-left: auto; } /* Push actions to the right */
              .platforms { max-width: 400px; }
-             .code-editor-mockup { margin-left: -5px; margin-right: -5px; }
+             .code-editor-mockup { margin-left: -5px; margin-right: -5px; } /* Allow slight overflow */
+
+             .features-grid { grid-template-columns: 1fr; } /* Stack features */
         }
          @media (max-width: 480px) {
              .hero-left h1 { font-size: 2.4rem; }
@@ -402,6 +471,9 @@
              .login-btn, .signup-btn { padding: 11px 18px; }
              .header-actions { gap: 8px; }
              .button, a.button { font-size: 0.85rem; }
+             .feature-item { padding: 20px 25px; }
+             .features-section h2 { font-size: 1.8rem; margin-bottom: 35px;}
+             .features-section { padding: 60px 0 40px; }
          }
 
     </style>
@@ -505,13 +577,59 @@
         </div>
     </main>
 
+    <section class="features-section">
+        <div class="container">
+            <h2>Powerful Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                    <h3>Script Collaboration</h3>
+                    <p>Work together with your team on scripts in real-time with our collaborative editor.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <h3>HWID Spoofer</h3>
+                    <p>Built-in hardware ID spoofer to protect your identity while scripting.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">
+                         <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    <h3>Script Manager</h3>
+                    <p>Organize and manage all your scripts in one place with our intuitive manager.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24"><path d="M4.5 11.5L12 21.5l7.5-10L12 1.5z"></path><path d="M12 11.5V21.5"></path><path d="M12 1.5a9 9 0 0 0-9 9c0 4.5 4 9.5 9 9.5s9-5 9-9.5a9 9 0 0 0-9-9"></path></svg>
+                    </div>
+                    <h3>Script Deployment</h3>
+                    <p>Deploy your scripts with a single click to any supported platform.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </div>
+                    <h3>Script Encryption</h3>
+                    <p>Keep your scripts secure with our advanced encryption technology.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">
+                         <svg viewBox="0 0 24 24"><path d="M16 16v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect><path d="M20 12h2a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2v-4a2 2 0 0 0-2-2h-2v-2a2 2 0 0 1 2-2h2Z"></path><path d="M4 16v-2a2 2 0 0 1 2-2h2v4H4Z"></path></svg>
+                    </div>
+                    <h3>Script Obfuscation</h3>
+                    <p>Protect your intellectual property with our powerful obfuscation tools.</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <footer>
         <div class="container">
-            <span class="footer-logo">N</span>
-        </div>
+            <span class="footer-logo">N</span> <p style="color: #555; font-size: 0.85rem; margin-top: 10px;">&copy; 2025 Project Canda. All rights reserved.</p> </div>
     </footer>
 
-    <!-- No JavaScript needed for static layout/animations -->
-
-</body>
-</html>3
+    </body>
+</html>
