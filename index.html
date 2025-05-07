@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Canda - An Advanced Macsploit Theme</title>
+    <title>Project Canda - Advanced Script Executor</title>
     <style>
         /* Basic Reset & Defaults */
         *,
@@ -211,50 +211,40 @@
             fill: none;
          }
 
-
-        /* --- Announcement Bar - UPDATED STYLES --- */
+        /* --- Announcement Bar --- */
         .announcement-container {
             text-align: center;
-            margin: 0 0 30px; /* Removed top margin */
-            padding-top: 25px; /* Add padding because header is sticky */
-            padding-bottom: 10px; /* Add some space below */
+            margin: 0 0 30px;
+            padding-top: 25px;
+            padding-bottom: 10px;
             animation: fadeIn 0.6s ease-out 0.2s forwards;
             opacity: 0;
         }
         .announcement-bar {
-            /* background-color: rgba(46, 204, 113, 0.12); */ /* Old */
-            background-color: rgba(30, 60, 45, 0.8); /* Darker, less transparent green */
-            color: #e0e0e0; /* Brighter text */
-            /* padding: 7px 16px; */ /* Old */
-            padding: 10px 25px; /* Increased padding */
-            border-radius: 50px; /* Ensure fully rounded pill shape */
+            background-color: rgba(30, 60, 45, 0.8);
+            color: #e0e0e0;
+            padding: 10px 25px;
+            border-radius: 50px;
             display: inline-block;
-            font-size: 0.9rem; /* Slightly larger font */
+            font-size: 0.9rem;
             font-weight: 500;
-            /* border: 1px solid rgba(46, 204, 113, 0.25); */ /* Old */
-            border: 1px solid rgba(46, 204, 113, 0.4); /* Brighter border */
-            max-width: 480px; /* Limit width */
-            margin: 0 auto; /* Center if container is wider */
-            box-shadow: 0 0 10px rgba(46, 204, 113, 0.2); /* Optional subtle glow */
+            border: 1px solid rgba(46, 204, 113, 0.4);
+            max-width: 480px;
+            margin: 0 auto;
+            box-shadow: 0 0 10px rgba(46, 204, 113, 0.2);
         }
         .announcement-bar .dot {
              display: inline-block;
-             /* width: 7px; height: 7px; */ /* Old */
-             width: 9px; height: 9px; /* Larger dot */
-             background-color: #2ecc71; /* Bright green */
+             width: 9px; height: 9px;
+             background-color: #2ecc71;
              border-radius: 50%;
-             /* margin-right: 7px; */ /* Old */
-             margin-right: 10px; /* Increased spacing */
+             margin-right: 10px;
              vertical-align: middle;
-             /* box-shadow: 0 0 6px 1px rgba(46, 204, 113, 0.5); */ /* Old */
-             box-shadow: 0 0 8px 2px rgba(46, 204, 113, 0.5); /* Stronger glow */
+             box-shadow: 0 0 8px 2px rgba(46, 204, 113, 0.5);
              position: relative;
              top: -1px;
         }
-        /* --- End Announcement Bar Styles --- */
 
-
-        /* --- Other Sections Styles (Hero, Features, Why Choose Us, Design/Themes) --- */
         /* Hero Section */
         .hero { display: flex; align-items: center; justify-content: space-between; gap: 60px; padding: 30px 0 90px; flex-wrap: wrap; animation: fadeIn 0.7s ease-out 0.3s forwards; opacity: 0; }
         .hero-left { flex: 1; min-width: 320px; }
@@ -266,8 +256,22 @@
         .platform-item { background-color: #1a1a1a; border: 1px solid #2d2d2d; padding: 10px 15px; border-radius: 7px; display: flex; align-items: center; font-weight: 500; font-size: 0.9rem; color: #c8c8c8; transition: background-color 0.3s ease, border-color 0.3s ease; }
         .platform-item:hover { background-color: #222222; border-color: #404040; }
         .platform-item .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 10px; flex-shrink: 0; position: relative; top: -1px; }
-        .platform-item.windows .dot, .platform-item.macos .dot { background-color: #2ecc71; box-shadow: 0 0 6px rgba(46, 204, 113, 0.6); }
-        .platform-item.android .dot, .platform-item.ios .dot { background-color: #e74c3c; box-shadow: 0 0 6px rgba(231, 76, 60, 0.5); }
+
+        /* --- UPDATED PLATFORM DOT COLORS --- */
+        .platform-item.windows .dot {
+            background-color: #e74c3c; /* Red color for Windows */
+            box-shadow: 0 0 6px rgba(231, 76, 60, 0.5); /* Red shadow */
+        }
+        .platform-item.macos .dot {
+            background-color: #2ecc71; /* Green color for MacOS */
+            box-shadow: 0 0 6px rgba(46, 204, 113, 0.6); /* Green shadow */
+        }
+        .platform-item.android .dot, .platform-item.ios .dot {
+            background-color: #e74c3c; /* Red for mobile - can be adjusted if needed */
+            box-shadow: 0 0 6px rgba(231, 76, 60, 0.5);
+        }
+        /* --- END UPDATED PLATFORM DOT COLORS --- */
+
         .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
         .get-started-btn { background-color: #2ecc71; color: #111; font-weight: 600; padding: 10px 22px; font-size: 0.95rem; }
         .get-started-btn:hover { background-color: #27ae60; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3); transform: translateY(-2px); }
@@ -440,18 +444,19 @@
     <main class="container">
         <div class="announcement-container">
             <div class="announcement-bar">
-                <span class="dot"></span> Now Available On MacOS!
+                <span class="dot"></span> Now Available for Windows & MacOS
             </div>
         </div>
         <div class="hero">
             <div class="hero-left">
-                <h1><span class="highlight">Project Canda</span><br><span class="secondary">An Advanced Macsploit Theme</span></h1>
-                <p>Elevate your scripting experience with our new Macsploit theme! Available for MacOS only with advanced features.</p>
+                <h1><span class="highlight">Project Canda</span><br><span class="secondary">Advanced Script Executor</span></h1>
+                <p>Elevate your scripting experience with our powerful cross-platform executor. Available for Windows and MacOS with advanced features.</p>
                 <div class="platforms">
                      <div class="platform-item windows"><span class="dot"></span>Windows</div>
-                    <div class="platform-item macos"><span class="dot"></span>MacOS</div>
-                    <div class="platform-item android"><span class="dot"></span>Android</div>
-                    <div class="platform-item ios"><span class="dot"></span>iOS</div>
+                     <div class="platform-item macos"><span class="dot"></span>MacOS</div>
+                     <div class="platform-item android"><span class="dot"></span>Android</div>
+                     <div class="platform-item ios"><span class="dot"></span>iOS</div>
+                 </div>
                 <div class="hero-buttons">
                     <a href="#" class="button get-started-btn">Get Started →</a>
                     <a href="#powerful-features" class="button explore-features-btn">Explore Features</a>
@@ -505,7 +510,7 @@
         <div class="container">
             <h2 class="section-title">Why Choose Us</h2>
             <div class="why-choose-us-content">
-                 <div class="choice-item"> <div class="choice-header"> <h3>Performance</h3><span class="percentage">95%</span></div> <p>Our theme is optimized for maximum performance with minimal resource usage.</p> <div class="progress-bar-container"><div class="progress-bar" style="width: 95%;"></div></div> </div>
+                 <div class="choice-item"> <div class="choice-header"> <h3>Performance</h3><span class="percentage">95%</span></div> <p>Our executor is optimized for maximum performance with minimal resource usage.</p> <div class="progress-bar-container"><div class="progress-bar" style="width: 95%;"></div></div> </div>
                  <div class="choice-item"> <div class="choice-header"> <h3>Stability</h3><span class="percentage">90%</span></div> <p>Enjoy a stable experience with fewer crashes and smoother operation.</p> <div class="progress-bar-container"><div class="progress-bar" style="width: 90%;"></div></div> </div>
                  <div class="choice-item"> <div class="choice-header"> <h3>Security</h3><span class="percentage">98%</span></div> <p>Your security is our priority with regular updates and vulnerability patches.</p> <div class="progress-bar-container"><div class="progress-bar" style="width: 98%;"></div></div> </div>
                  <div class="choice-item"> <div class="choice-header"> <h3>Compatibility</h3><span class="percentage">92%</span></div> <p>Works with a wide range of scripts and platforms for maximum flexibility.</p> <div class="progress-bar-container"><div class="progress-bar" style="width: 92%;"></div></div> </div>
@@ -518,7 +523,7 @@
               <div class="design-themes-grid">
                    <div class="design-support-content">
                         <h3 class="subsection-title">Sleek Design & Support</h3>
-                        <p>Our theme features a modern, intuitive interface designed for both beginners and professionals. The clean layout ensures you can focus on what matters most - your scripts.</p>
+                        <p>Our executor features a modern, intuitive interface designed for both beginners and professionals. The clean layout ensures you can focus on what matters most - your scripts.</p>
                         <p>We've integrated AI assistance directly into the editor, helping you write better scripts, debug issues, and learn new techniques. Our AI can suggest optimizations, identify potential errors, and even help you understand complex code.</p>
                         <p>With 24/7 support from both our team and our AI assistant, you'll never be stuck on a problem for long. Our community forums and knowledge base provide additional resources for any questions you might have.</p>
                    </div>
@@ -600,7 +605,7 @@
 
     <footer>
         <div class="container">
-            <span class="footer-logo">C</span> <p class="footer-copyright">&copy; 2025 Project Canda. All rights reserved. Credits to 7Sleeps & WatchedFungus88 & Zyit0. Keep in mind, the Windows, iOS and Android boxes are there for looks only! </p>
+            <span class="footer-logo">N</span> <p class="footer-copyright">&copy; 2025 Project Canda. All rights reserved.</p>
         </div>
     </footer>
 
